@@ -9,14 +9,15 @@ public class DecisionWindow implements ActionListener
     public static final int HEIGHT = 500;
 
     //initialization of frame and button
-    JFrame decisionWindow = new JFrame();
-    JButton aiButton = new JButton();
-    JButton playerButton = new JButton();
+    JFrame decisionWindow;
+    JButton aiButton;
+    JButton playerButton;
 
     // constructor of my window
     public DecisionWindow()
     {
         //for the frame
+        decisionWindow = new JFrame();
         decisionWindow.setSize(WIDTH, HEIGHT);
         decisionWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         decisionWindow.setTitle("8-puzzle-game");
@@ -26,12 +27,13 @@ public class DecisionWindow implements ActionListener
         decisionWindow.setVisible(true);
 
         //2 buttons needed (Play with or without AI)
+        aiButton = new JButton();
         aiButton.setBounds(190, 150, 300, 50);
         aiButton.setText("PLAY WITH AI");
         decisionWindow.add(aiButton);
         aiButton.addActionListener(this);
 
-
+        playerButton = new JButton();
         playerButton.setBounds(190, 200, 300, 50);
         playerButton.setText("PLAY ALONE");
         decisionWindow.add(playerButton);
