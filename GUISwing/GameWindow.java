@@ -16,15 +16,4 @@ public class GameWindow extends JFrame
         getContentPane().setBackground(new Color(45, 68, 82));
         setResizable(false);
     }
-
-    // initial state of window
-    public void initialState()
-    {
-        JButton startButton = new JButton();
-        startButton.setBounds(280, 200, 100, 50);
-        startButton.setText("START");
-        add(startButton);
-
-        startButton.addActionListener(new StartingListener());
-    }
 }
