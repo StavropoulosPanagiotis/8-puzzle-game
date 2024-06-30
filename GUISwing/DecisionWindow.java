@@ -29,15 +29,27 @@ public class DecisionWindow implements ActionListener
         aiButton.setBounds(190, 150, 300, 50);
         aiButton.setText("PLAY WITH AI");
         decisionWindow.add(aiButton);
+        aiButton.addActionListener(this);
+
 
         playerButton.setBounds(190, 200, 300, 50);
         playerButton.setText("PLAY ALONE");
         decisionWindow.add(playerButton);
+        playerButton.addActionListener(this);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getSource() == aiButton)
+        {
+            decisionWindow.dispose();
+            AIWindow aiWindow = new AIWindow();
+
+        }else if(e.getSource() == playerButton)
+        {
+            decisionWindow.dispose();
+            PlayerWindow playerWindow = new PlayerWindow();
+        }
     }
 }
