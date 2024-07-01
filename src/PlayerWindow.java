@@ -44,6 +44,8 @@ public class PlayerWindow implements ActionListener
     {
         jBoard[emptyRow][emptyCollumn].setVisible(false); //makes button invisible (we have our empty space now)
     }
+
+    
     
 
     @Override
