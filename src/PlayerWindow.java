@@ -31,12 +31,21 @@ public class PlayerWindow implements ActionListener
         jBoard = new JButton[x][y];
         for(int i = 1; i < x; i++){
             for(int j = 1; j < y; j++){
-                jBoard[i][j] = new JButton("" + i);
+                jBoard[i][j] = new JButton("");
                 playerWindow.add(jBoard[i][j]);
             }
         }
+
+        //createEmptySpace(1, 2);
+    }
+
+    //creates the empty space of the puzzle
+    public void createEmptySpace(int emptyRow, int emptyCollumn)
+    {
+        jBoard[emptyRow][emptyCollumn].setVisible(false); //makes button invisible (we have our empty space now)
     }
     
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
