@@ -11,8 +11,8 @@ public class AIWindow implements ActionListener
 
     JFrame aiWindow = new JFrame();
     JButton[][] jBoard;
-    int x = 3;
-    int y = 3;
+    int x = 4;
+    int y = 4;
 
     public AIWindow()
     {
@@ -28,8 +28,8 @@ public class AIWindow implements ActionListener
         //for the board
         aiWindow.setLayout(new GridLayout(3, 3)); //makes the board
         jBoard = new JButton[x][y];
-        for(int i = 0; i < x; i++){
-            for(int j = 0; j < y; j++){
+        for(int i = 1; i < x; i++){
+            for(int j = 1; j < y; j++){
                 jBoard[i][j] = new JButton("" + i);
                 aiWindow.add(jBoard[i][j]);
             }
