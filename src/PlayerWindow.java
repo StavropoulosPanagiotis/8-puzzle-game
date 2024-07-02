@@ -1,4 +1,3 @@
-import java.util.*;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.event.*;
@@ -37,22 +36,32 @@ public class PlayerWindow implements ActionListener
             }
         }
 
-        //createEmptySpace(1, 2);
+        createInitialState();
     }
 
+    
+    
+    //ask user for initial state
+    public void createInitialState()
+    {
+        //for the empty cell
+        String[] emptyRowOptions = {"1", "2", "3"};
+        String[] emptyCollumnOptions = {"1", "2", "3"};
+        
+        int emptyRow;
+        int emptyCollumn;
+        
+        emptyRow = JOptionPane.showOptionDialog(null, "Choose in which row the empty cell should be: ", "EMPTY CELL ROW", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, emptyRowOptions, 0) + 1;
+        emptyCollumn = JOptionPane.showOptionDialog(null, "Choose in which collumn the empty cell should be: ", "EMPTY CELL COLLUMN", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, emptyCollumnOptions, 0) + 1;
+        createEmptySpace(emptyRow, emptyCollumn);
+        
+        
+    }
+    
     //creates the empty space of the puzzle
     public void createEmptySpace(int emptyRow, int emptyCollumn)
     {
         jBoard[emptyRow][emptyCollumn].setVisible(false); //makes button invisible (we have our empty space now)
-    }
-
-
-    //ask user for initial state
-    public void createInitialState()
-    {
-        int emptyRow = 0;
-        int emptyCollumn = 0;
-        Scanner userInput = new Scanner(System.in);
     }
 
     @Override
