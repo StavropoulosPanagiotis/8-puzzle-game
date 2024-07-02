@@ -1,7 +1,8 @@
+import java.util.*;
 import javax.swing.*;
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.*;
+import java.awt.GridLayout;
 
 public class PlayerWindow implements ActionListener
 {
@@ -45,8 +46,14 @@ public class PlayerWindow implements ActionListener
         jBoard[emptyRow][emptyCollumn].setVisible(false); //makes button invisible (we have our empty space now)
     }
 
-    
-    
+
+    //ask user for initial state
+    public void createInitialState()
+    {
+        int emptyRow = 0;
+        int emptyCollumn = 0;
+        Scanner userInput = new Scanner(System.in);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
