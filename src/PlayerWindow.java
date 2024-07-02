@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.awt.GridLayout;
 
 public class PlayerWindow implements ActionListener
@@ -35,7 +38,7 @@ public class PlayerWindow implements ActionListener
         for(int i = 1; i < x; i++){
             for(int j = 1; j < y; j++){
                 jBoard[i][j] = new JButton("");
-                board[i][j] = new Cell(i, i, 0, true);
+                board[i][j] = new Cell(i, i, -1, true);
                 playerWindow.add(jBoard[i][j]);
             }
         }
@@ -57,19 +60,31 @@ public class PlayerWindow implements ActionListener
         //for the other cells
         int value;
         String[] valueOptions = {"1", "2", "3", "4", "5", "6", "7", "8"};
+        List<String> list = new ArrayList<String>(Arrays.asList(valueOptions)); //used to eliminate an option later in the loop
 
         emptyRow = JOptionPane.showOptionDialog(null, "Choose in which row the empty cell should be: ", "EMPTY CELL ROW", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, emptyRowOptions, 0) + 1;
         emptyCollumn = JOptionPane.showOptionDialog(null, "Choose in which collumn the empty cell should be: ", "EMPTY CELL COLLUMN", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, emptyCollumnOptions, 0) + 1;
         createEmptySpace(emptyRow, emptyCollumn);
         
-        //for all the other cells
+        //create initial state
         for(int i = 1; i < x; i++){
             for(int j = 1; j < y; j++){
-                value = JOptionPane.showOptionDialog(null, "Enter the value of the cell in the " + i + " row and the " + j + " collumn: ", "EMPTY CELL ROW", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valueOptions, 0) + 1;
+                //check if cell is the "empty cell"
+                if(board[i][j].getValue() == 0)
+                {
+                    System.out.println("EMPTY CELL FOUND");
+                    continue;
+                }
+                //if not then update both the values and the options left
+                int selectedIndex = JOptionPane.showOptionDialog(null, "Enter the value of the cell in the " + i + " row and the " + j + " collumn: ", "CELL VALUE", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valueOptions, valueOptions[0]);
+                value = Integer.parseInt(valueOptions[selectedIndex]);
                 jBoard[i][j].setText("" + value);
                 board[i][j].setValue(value);
                 board[i][j].setIsEmpty(false);
-                System.out.println(board[i][j].getValue());
+
+                
+                list.remove(value - 1);
+                valueOptions = list.toArray(new String[0]);
             }
         }
     }
@@ -78,8 +93,30 @@ public class PlayerWindow implements ActionListener
     public void createEmptySpace(int emptyRow, int emptyCollumn)
     {
         jBoard[emptyRow][emptyCollumn].setVisible(false); //makes button invisible (we have our empty space now)
+        board[emptyRow][emptyCollumn].setValue(0);
+        board[emptyRow][emptyCollumn].setIsEmpty(false);
     }
 
+    //checks if move is valid(if value already exists or a specific cell is already occupied)
+    public boolean isMoveValid(int row, int collumn)
+    {
+        boolean isValid = true;
+
+        //check if move is out of bounds
+        if(row < 1 || row > 3 || collumn < 1 || collumn > 3)
+        {
+            isValid = false;
+        }
+
+        //check if cell is already occupied
+        if(!board[row][collumn].getIsEmpty())
+        {
+            isValid = false;
+        }
+
+        return isValid;
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
