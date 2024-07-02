@@ -3,7 +3,7 @@ import java.awt.Color;
 import java.awt.event.*;
 import java.awt.GridLayout;
 
-public class PlayerWindow extends Cell implements ActionListener
+public class PlayerWindow implements ActionListener
 {
     //dimensions of the frame
     public static final int WIDTH = 700;
@@ -11,6 +11,8 @@ public class PlayerWindow extends Cell implements ActionListener
 
     JFrame playerWindow;
     JButton[][] jBoard;
+    Cell[][] board;
+
     int x = 4;
     int y = 4;
 
@@ -29,9 +31,11 @@ public class PlayerWindow extends Cell implements ActionListener
         //for the board(grid)
         playerWindow.setLayout(new GridLayout(3, 3)); //makes the board
         jBoard = new JButton[x][y];
+        board = new Cell[x][y];
         for(int i = 1; i < x; i++){
             for(int j = 1; j < y; j++){
                 jBoard[i][j] = new JButton("");
+                board[i][j] = new Cell(i, i, 0, true);
                 playerWindow.add(jBoard[i][j]);
             }
         }
@@ -63,6 +67,9 @@ public class PlayerWindow extends Cell implements ActionListener
             for(int j = 1; j < y; j++){
                 value = JOptionPane.showOptionDialog(null, "Enter the value of the cell in the " + i + " row and the " + j + " collumn: ", "EMPTY CELL ROW", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valueOptions, 0) + 1;
                 jBoard[i][j].setText("" + value);
+                board[i][j].setValue(value);
+                board[i][j].setIsEmpty(false);
+                System.out.println(board[i][j].getValue());
             }
         }
     }
