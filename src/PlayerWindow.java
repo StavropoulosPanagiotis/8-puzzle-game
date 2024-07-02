@@ -45,17 +45,26 @@ public class PlayerWindow implements ActionListener
     public void createInitialState()
     {
         //for the empty cell
-        String[] emptyRowOptions = {"1", "2", "3"};
-        String[] emptyCollumnOptions = {"1", "2", "3"};
-        
         int emptyRow;
         int emptyCollumn;
-        
+        String[] emptyRowOptions = {"1", "2", "3"};
+        String[] emptyCollumnOptions = {"1", "2", "3"};
+
+        //for the other cells
+        int value;
+        String[] valueOptions = {"1", "2", "3", "4", "5", "6", "7", "8"};
+
         emptyRow = JOptionPane.showOptionDialog(null, "Choose in which row the empty cell should be: ", "EMPTY CELL ROW", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, emptyRowOptions, 0) + 1;
         emptyCollumn = JOptionPane.showOptionDialog(null, "Choose in which collumn the empty cell should be: ", "EMPTY CELL COLLUMN", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, emptyCollumnOptions, 0) + 1;
         createEmptySpace(emptyRow, emptyCollumn);
         
-        
+        //for all the other cells
+        for(int i = 1; i < x; i++){
+            for(int j = 1; j < y; j++){
+                value = JOptionPane.showOptionDialog(null, "Enter the value of the cell in the " + i + " row and the " + j + " collumn: ", "EMPTY CELL ROW", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valueOptions, 0) + 1;
+                jBoard[i][j].setText("" + value);
+            }
+        }
     }
     
     //creates the empty space of the puzzle
