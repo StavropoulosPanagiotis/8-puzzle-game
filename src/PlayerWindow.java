@@ -3,7 +3,7 @@ import java.awt.Color;
 import java.awt.event.*;
 import java.awt.GridLayout;
 
-public class PlayerWindow implements ActionListener
+public class PlayerWindow extends Cell implements ActionListener
 {
     //dimensions of the frame
     public static final int WIDTH = 700;
