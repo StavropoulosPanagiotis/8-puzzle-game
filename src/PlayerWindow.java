@@ -60,15 +60,17 @@ public class PlayerWindow implements ActionListener
         //for the other cells
         int value;
         String[] valueOptions = {"1", "2", "3", "4", "5", "6", "7", "8"};
-        List<String> list = new ArrayList<String>(Arrays.asList(valueOptions)); //used to eliminate an option later in the loop
+        List<String> list = new ArrayList<String>(Arrays.asList(valueOptions)); //used to eliminate an option later in the for loop
 
         emptyRow = JOptionPane.showOptionDialog(null, "Choose in which row the empty cell should be: ", "EMPTY CELL ROW", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, emptyRowOptions, 0) + 1;
         emptyCollumn = JOptionPane.showOptionDialog(null, "Choose in which collumn the empty cell should be: ", "EMPTY CELL COLLUMN", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, emptyCollumnOptions, 0) + 1;
         createEmptySpace(emptyRow, emptyCollumn);
         
         //create initial state
-        for(int i = 1; i < x; i++){
-            for(int j = 1; j < y; j++){
+        for(int i = 1; i < x; i++)
+        {
+            for(int j = 1; j < y; j++)
+            {
                 //check if cell is the "empty cell"
                 if(board[i][j].getValue() == 0)
                 {
@@ -84,11 +86,6 @@ public class PlayerWindow implements ActionListener
 
                 list.remove(selectedIndex);
                 valueOptions = list.toArray(new String[0]);
-
-                for(int k = 0; k < list.size(); k++){
-                    System.out.print(list.get(k) + " ");
-                }
-                System.out.println();
             }
         }
     }
