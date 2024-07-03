@@ -72,19 +72,23 @@ public class PlayerWindow implements ActionListener
                 //check if cell is the "empty cell"
                 if(board[i][j].getValue() == 0)
                 {
-                    System.out.println("EMPTY CELL FOUND");
                     continue;
                 }
                 //if not then update both the values and the options left
                 int selectedIndex = JOptionPane.showOptionDialog(null, "Enter the value of the cell in the " + i + " row and the " + j + " collumn: ", "CELL VALUE", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valueOptions, valueOptions[0]);
                 value = Integer.parseInt(valueOptions[selectedIndex]);
+
                 jBoard[i][j].setText("" + value);
                 board[i][j].setValue(value);
                 board[i][j].setIsEmpty(false);
 
-                
-                list.remove(value - 1);
+                list.remove(selectedIndex);
                 valueOptions = list.toArray(new String[0]);
+
+                for(int k = 0; k < list.size(); k++){
+                    System.out.print(list.get(k) + " ");
+                }
+                System.out.println();
             }
         }
     }
