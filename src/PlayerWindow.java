@@ -44,6 +44,10 @@ public class PlayerWindow implements ActionListener
         }
 
         createInitialState();
+        int[] myArray = validMove(2, 3);
+        for(int k = 0; k < 2; k++){
+            System.out.println(myArray[k]);
+        }
     }
     
     //ask user for initial state
@@ -93,29 +97,69 @@ public class PlayerWindow implements ActionListener
     {
         jBoard[emptyRow][emptyCollumn].setVisible(false); //makes button invisible (we have our empty space now)
         board[emptyRow][emptyCollumn].setValue(0);
-        board[emptyRow][emptyCollumn].setIsEmpty(false);
+        board[emptyRow][emptyCollumn].setIsEmpty(true);
     }
 
-    //checks if move is valid(if value already exists or a specific cell is already occupied)
-    public boolean isMoveValid(int row, int collumn)
+    //returns an array of ints
+    public int[] validMove(int row, int collumn)
     {
-        boolean isValid = true;
-
-        //check if move is out of bounds
-        if(row < 1 || row > 3 || collumn < 1 || collumn > 3)
-        {
-            isValid = false;
+        int[] validArray = {0, 0};
+        int[] emptyArray = {0, 0};
+        
+        for(int i = 1; i < x; i++){
+            for(int j = 1; j < y; j++){
+                if(board[i][j].getIsEmpty()){
+                    emptyArray[0] = i;
+                    emptyArray[1] = j;
+                }
+            }
         }
 
-        //check if cell is already occupied
-        if(!board[row][collumn].getIsEmpty())
-        {
-            isValid = false;
-        }
+        if(emptyArray[0] == row + 1){ // all the possible locations if empty cell is in the row below
+            if(emptyArray[1] == collumn + 1 && board[emptyArray[0]][emptyArray[1]] != null){
+                validArray[0] = row + 1;
+                validArray[1] = collumn + 1;
 
-        return isValid;
+            }else if(emptyArray[1] == collumn - 1 && board[emptyArray[0]][emptyArray[1]] != null){
+                validArray[0] = row + 1;
+                validArray[1] = collumn - 1;
+
+            }else{
+                validArray[0] = row + 1;
+                validArray[1] = collumn;
+            }
+
+        }else if(emptyArray[0] == row - 1){ //all the possible locations if empty cell is in the row above
+            if(emptyArray[1] == collumn + 1 && board[emptyArray[0]][emptyArray[1]] != null){
+                validArray[0] = row - 1;
+                validArray[1] = collumn + 1;
+
+            }else if(emptyArray[1] == collumn - 1 && board[emptyArray[0]][emptyArray[1]] != null){
+                validArray[0] = row - 1;
+                validArray[1] = collumn - 1;
+
+            }else{
+                validArray[0] = row - 1;
+                validArray[1] = collumn;
+            }
+
+        }else{ //all the possible locations if empty cell is in the same row
+            if(emptyArray[1] == collumn + 1 && board[emptyArray[0]][emptyArray[1]] != null){
+                validArray[0] = row;
+                validArray[1] = collumn + 1;
+
+            }else if(emptyArray[1] == collumn - 1 && board[emptyArray[0]][emptyArray[1]] != null){
+                validArray[0] = row;
+                validArray[1] = collumn - 1;
+
+            }else{
+                validArray[0] = row;
+                validArray[1] = collumn;
+            }
+        }
+        return validArray;
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
