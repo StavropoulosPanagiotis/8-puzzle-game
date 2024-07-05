@@ -45,8 +45,6 @@ public class PlayerWindow implements ActionListener
 
         createInitialState();
     }
-
-    
     
     //ask user for initial state
     public void createInitialState()
