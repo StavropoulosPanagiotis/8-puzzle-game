@@ -114,7 +114,6 @@ public class PlayerWindow implements ActionListener
                 }
             }
         }
-
         if(emptyArray[0] == row + 1){ // all the possible locations if empty cell is in the row below
             if(emptyArray[1] == collumn + 1 && board[emptyArray[0]][emptyArray[1]] != null){
                 validArray[0] = row + 1;
@@ -128,7 +127,6 @@ public class PlayerWindow implements ActionListener
                 validArray[0] = row + 1;
                 validArray[1] = collumn;
             }
-
         }else if(emptyArray[0] == row - 1){ //all the possible locations if empty cell is in the row above
             if(emptyArray[1] == collumn + 1 && board[emptyArray[0]][emptyArray[1]] != null){
                 validArray[0] = row - 1;
@@ -142,7 +140,6 @@ public class PlayerWindow implements ActionListener
                 validArray[0] = row - 1;
                 validArray[1] = collumn;
             }
-
         }else{ //all the possible locations if empty cell is in the same row
             if(emptyArray[1] == collumn + 1 && board[emptyArray[0]][emptyArray[1]] != null){
                 validArray[0] = row;
