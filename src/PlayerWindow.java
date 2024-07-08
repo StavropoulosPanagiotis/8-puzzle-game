@@ -44,10 +44,6 @@ public class PlayerWindow implements ActionListener
         }
 
         createInitialState();
-        int[] myArray = validMove(2, 3);
-        for(int k = 0; k < 2; k++){
-            System.out.println(myArray[k]);
-        }
     }
     
     //ask user for initial state
