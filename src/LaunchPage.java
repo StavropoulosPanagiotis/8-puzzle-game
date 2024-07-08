@@ -35,7 +35,7 @@ public class LaunchPage implements ActionListener
         if(e.getSource() == startButton)
         {
             launchPage.dispose(); //close the launch window
-            DecisionWindow decisionWindow = new DecisionWindow(); //open the "final" window
+            PlayerWindow playerWindow = new PlayerWindow(); //open the "final" window
         }
     }
     
