@@ -38,12 +38,15 @@ public class PlayerWindow implements ActionListener
         for(int i = 1; i < x; i++){
             for(int j = 1; j < y; j++){
                 jBoard[i][j] = new JButton("");
-                board[i][j] = new Cell(i, i, -1, true);
+                jBoard[i][j].addActionListener(this);
+                board[i][j] = new Cell(i, j, -1, true);
                 playerWindow.add(jBoard[i][j]);
             }
         }
 
         createInitialState();
+        System.out.println(isFinalState());
+       
     }
     
     //ask user for initial state
@@ -96,11 +99,11 @@ public class PlayerWindow implements ActionListener
         board[emptyRow][emptyCollumn].setIsEmpty(true);
     }
 
-    //returns an array of ints
+    //It takes the cell that we want to move and returns an array of ints where array[0] is the row of the available move and array[1] is the collumn
     public int[] validMove(int row, int collumn)
     {
-        int[] validArray = {0, 0};
-        int[] emptyArray = {0, 0};
+        int[] validArray = {-1, -1};
+        int[] emptyArray = {-1, -1};
         
         for(int i = 1; i < x; i++){
             for(int j = 1; j < y; j++){
@@ -110,53 +113,69 @@ public class PlayerWindow implements ActionListener
                 }
             }
         }
-        if(emptyArray[0] == row + 1){ // all the possible locations if empty cell is in the row below
-            if(emptyArray[1] == collumn + 1 && board[emptyArray[0]][emptyArray[1]] != null){
-                validArray[0] = row + 1;
-                validArray[1] = collumn + 1;
 
-            }else if(emptyArray[1] == collumn - 1 && board[emptyArray[0]][emptyArray[1]] != null){
-                validArray[0] = row + 1;
-                validArray[1] = collumn - 1;
+        int[] dx = {-1, 1, 0, 0, -1, 1, -1, 1};
+        int[] dy = {0, 0, -1, 1, -1, -1, 1, 1};
 
-            }else{
-                validArray[0] = row + 1;
-                validArray[1] = collumn;
-            }
-        }else if(emptyArray[0] == row - 1){ //all the possible locations if empty cell is in the row above
-            if(emptyArray[1] == collumn + 1 && board[emptyArray[0]][emptyArray[1]] != null){
-                validArray[0] = row - 1;
-                validArray[1] = collumn + 1;
+        // Check all possible moves
+        for (int i = 0; i < 8; i++) {
+            int newRow = row + dx[i];
+            int newCol = collumn + dy[i];
 
-            }else if(emptyArray[1] == collumn - 1 && board[emptyArray[0]][emptyArray[1]] != null){
-                validArray[0] = row - 1;
-                validArray[1] = collumn - 1;
-
-            }else{
-                validArray[0] = row - 1;
-                validArray[1] = collumn;
-            }
-        }else{ //all the possible locations if empty cell is in the same row
-            if(emptyArray[1] == collumn + 1 && board[emptyArray[0]][emptyArray[1]] != null){
-                validArray[0] = row;
-                validArray[1] = collumn + 1;
-
-            }else if(emptyArray[1] == collumn - 1 && board[emptyArray[0]][emptyArray[1]] != null){
-                validArray[0] = row;
-                validArray[1] = collumn - 1;
-
-            }else{
-                validArray[0] = row;
-                validArray[1] = collumn;
+            if (newRow == emptyArray[0] && newCol == emptyArray[1] && isValid(newRow, newCol)) {
+                validArray[0] = newRow;
+                validArray[1] = newCol;
+                break;
             }
         }
         return validArray;
     }
 
+    // Function to check if a given cell is within the board boundaries
+    public boolean isValid(int x, int y) {
+        return (x >= 1 && x <= 3 && y >= 1 && y <= 3);
+    }
+
+    //cheks if board is in final state
+    public boolean isFinalState() {
+        int[][] finalState = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 0} // Assuming 0 represents the empty cell
+        };
+    
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i + 1][j + 1].getIsEmpty()) {
+                    if (finalState[i][j] != 0) {
+                        return false; // Empty cell position must match
+                    }
+                } else {
+                    if (board[i + 1][j + 1].getValue() != finalState[i][j]) {
+                        return false; // Non-empty cell value must match
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    
+
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+    public void actionPerformed(ActionEvent e) 
+    {
+        int rowOfButtonPressed = 0;
+        int collumnOfButtonPressed = 0;
+
+        //find the row and the collumn of the pressed button
+        for(int i = 1; i < x; i ++){
+            for(int j = 1; j < y; j++){
+                if(jBoard[i][j] == e.getSource()){
+                    rowOfButtonPressed = i;
+                    collumnOfButtonPressed = j;
+                }
+            }
+        }
     }
 
 }
