@@ -45,7 +45,6 @@ public class PlayerWindow implements ActionListener
         }
 
         createInitialState();
-        printValues();
     }
     
     //ask user for initial state
@@ -174,7 +173,7 @@ public class PlayerWindow implements ActionListener
         for(int i = 1; i < x; i ++){
             for(int j = 1; j < y; j++){
                 if(jBoard[i][j] == e.getSource()){
-                    rowOfButtonPressed = i;
+                     rowOfButtonPressed = i;
                     collumnOfButtonPressed = j;
                 }
             }
@@ -199,17 +198,9 @@ public class PlayerWindow implements ActionListener
             text = jBoard[rowOfButtonPressed][collumnOfButtonPressed].getText();
             jBoard[availableMove[0]][availableMove[1]].setText("" + text);
         }
-        printValues();
-    }
 
-    //FOR DEBUGGING
-    public void printValues()
-    {
-        for(int i = 1; i < x; i++){
-            for(int j = 1; j < y; j++){
-                System.out.print(board[i][j].getValue() + " ");
-                System.out.println(board[i][j].getIsEmpty());
-            }
+        if(isFinalState()){
+            JOptionPane.showMessageDialog(playerWindow, "GAME OVER");
         }
     }
 }
