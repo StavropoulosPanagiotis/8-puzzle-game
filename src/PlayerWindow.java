@@ -45,8 +45,7 @@ public class PlayerWindow implements ActionListener
         }
 
         createInitialState();
-        System.out.println(isFinalState());
-       
+        printValues();
     }
     
     //ask user for initial state
@@ -132,12 +131,14 @@ public class PlayerWindow implements ActionListener
     }
 
     // Function to check if a given cell is within the board boundaries
-    public boolean isValid(int x, int y) {
+    public boolean isValid(int x, int y)
+    {
         return (x >= 1 && x <= 3 && y >= 1 && y <= 3);
     }
 
     //cheks if board is in final state
-    public boolean isFinalState() {
+    public boolean isFinalState() 
+    {
         int[][] finalState = {
             {1, 2, 3},
             {4, 5, 6},
@@ -166,6 +167,8 @@ public class PlayerWindow implements ActionListener
     {
         int rowOfButtonPressed = 0;
         int collumnOfButtonPressed = 0;
+        int[] availableMove; //also used for the empty cell
+        String text;
 
         //find the row and the collumn of the pressed button
         for(int i = 1; i < x; i ++){
@@ -176,6 +179,37 @@ public class PlayerWindow implements ActionListener
                 }
             }
         }
+
+        availableMove = validMove(rowOfButtonPressed, collumnOfButtonPressed);
+
+        if(availableMove[0] != -1 && availableMove[1] != -1){
+            //make buttons visible and invisible
+            jBoard[rowOfButtonPressed][collumnOfButtonPressed].setVisible(false);
+            jBoard[availableMove[0]][availableMove[1]].setVisible(true);
+
+            //swap values
+            int value = board[rowOfButtonPressed][collumnOfButtonPressed].getValue();
+            board[rowOfButtonPressed][collumnOfButtonPressed].setIsEmpty(true);
+            board[rowOfButtonPressed][collumnOfButtonPressed].setValue(0);
+
+            board[availableMove[0]][availableMove[1]].setValue(value);
+            board[availableMove[0]][availableMove[1]].setIsEmpty(false);
+
+            //update text
+            text = jBoard[rowOfButtonPressed][collumnOfButtonPressed].getText();
+            jBoard[availableMove[0]][availableMove[1]].setText("" + text);
+        }
+        printValues();
     }
 
+    //FOR DEBUGGING
+    public void printValues()
+    {
+        for(int i = 1; i < x; i++){
+            for(int j = 1; j < y; j++){
+                System.out.print(board[i][j].getValue() + " ");
+                System.out.println(board[i][j].getIsEmpty());
+            }
+        }
+    }
 }
