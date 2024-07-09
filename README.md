@@ -1,8 +1,10 @@
 This is my implementation of the widely known 8-puzzle-game where the user picks the initial state of the board (both were the empty cell will be and initial values of all the other cells).
 The final state is this:
 
-1 - 2 - 3 \n
-4 - 5 - 6 \n
+1 - 2 - 3
+
+4 - 5 - 6 
+
 7 - 8 - 
 
 The cells can move up, down, right, left, but also diagonally.
